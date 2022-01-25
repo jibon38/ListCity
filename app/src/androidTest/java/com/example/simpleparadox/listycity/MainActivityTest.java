@@ -92,6 +92,77 @@ public class MainActivityTest{
     }
 
     /**
+     * test switching from main activity to showActivity page after clicking any listview item
+     */
+    @Test
+    public void testSwitchingFromMainActivity()
+    {
+        // Asserts that the current activity is the MainActivity. Otherwise, show “Wrong Activity”
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
+        solo.clickOnButton("ADD CITY");     //Click ADD CITY Button
+
+        //Get view for EditText and enter a city name
+        solo.enterText((EditText) solo.getView(R.id.editText_name), "Edmonton");
+        solo.clickOnButton("CONFIRM");                              //Select CONFIRM Button
+        solo.clearEditText((EditText) solo.getView(R.id.editText_name)); //Clear the EditText after clicking CONFIRM button
+        assertTrue(solo.waitForText("Edmonton", 1, 2000));
+
+        solo.clickOnText("Edmonton");
+        solo.assertCurrentActivity("Wrong Activity", showActivity.class);
+
+    }
+
+    /**
+     * Testing whether city name is consistent
+     */
+    @Test
+    public void testCityName()
+    {
+        // Asserts that the current activity is the MainActivity. Otherwise, show “Wrong Activity”
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
+        solo.clickOnButton("ADD CITY");     //Click ADD CITY Button
+
+        //Get view for EditText and enter a city name
+        solo.enterText((EditText) solo.getView(R.id.editText_name), "Edmonton");
+        solo.clickOnButton("CONFIRM");                              //Select CONFIRM Button
+        solo.clearEditText((EditText) solo.getView(R.id.editText_name)); //Clear the EditText after clicking CONFIRM button
+        assertTrue(solo.waitForText("Edmonton", 1, 2000));
+
+        solo.clickOnText("Edmonton");
+        solo.assertCurrentActivity("Wrong Activity", showActivity.class);
+
+        assertTrue(solo.waitForText("Edmonton", 1, 5000));
+    }
+
+    /**
+     * test back button
+     */
+    @Test
+    public void testBackButton()
+    {
+        // Asserts that the current activity is the MainActivity. Otherwise, show “Wrong Activity”
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
+        solo.clickOnButton("ADD CITY");     //Click ADD CITY Button
+
+        //Get view for EditText and enter a city name
+        solo.enterText((EditText) solo.getView(R.id.editText_name), "Edmonton");
+        solo.clickOnButton("CONFIRM");                              //Select CONFIRM Button
+        solo.clearEditText((EditText) solo.getView(R.id.editText_name)); //Clear the EditText after clicking CONFIRM button
+        assertTrue(solo.waitForText("Edmonton", 1, 2000));
+
+        solo.clickOnText("Edmonton");
+        solo.assertCurrentActivity("Wrong Activity", showActivity.class);
+
+        //assertTrue(solo.waitForText("Edmonton", 1, 5000));
+
+        solo.clickOnButton("Back");
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+    }
+
+    /**
      * Close activity after each test
      * @throws Exception
      */
